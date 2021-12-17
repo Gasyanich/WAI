@@ -1,0 +1,17 @@
+main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 50px);
+}
+
+.toolbar {
+  height: 50px;
+}
+
+.nav-menu{
+  width: 100%;
+  mat-icon{
+    margin-right: 8px;
+  }
+}
+

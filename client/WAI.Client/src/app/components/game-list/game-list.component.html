@@ -1,0 +1,7 @@
+<mat-list>
+  <div mat-subheader>Игры</div>
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let game of games$ | async">
+    <div mat-line>{{game.name}}</div>
+  </mat-list-item>
+</mat-list>
