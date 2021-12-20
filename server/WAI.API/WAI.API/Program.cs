@@ -35,6 +35,7 @@ builder.Services.AddIdentity<User, IdentityRole<long>>()
 
 builder.Services.AddDataProtection();
 builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddMediatR(typeof(Program));
 

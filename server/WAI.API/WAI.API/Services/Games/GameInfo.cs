@@ -2,11 +2,7 @@
 
 public class GameInfo
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
 
     public string Name { get; set; }
-
-    public int MembersCount { get; set; }
-
-    public string Creator { get; set; }
 }

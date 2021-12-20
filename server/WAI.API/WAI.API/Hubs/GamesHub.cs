@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using WAI.API.Services.Games;
 
 namespace WAI.API.Hubs;
@@ -15,14 +14,7 @@ public class GamesHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var games = _gamesService.GetGamesInfo();
+        var games = _gamesService.GetGamesInfoAsync();
         await Clients.Caller.SendAsync("GetGames", games);
     }
-    
-    
-}
-
-public interface IGamesHub
-{
-    Task CreateGame(string gameName);
 }
