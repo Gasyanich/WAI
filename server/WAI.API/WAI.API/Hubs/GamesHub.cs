@@ -14,7 +14,7 @@ public class GamesHub : Hub
 
     public override async Task OnConnectedAsync()
     {
-        var games = _gamesService.GetGamesInfoAsync();
+        var games = await _gamesService.GetGamesInfoAsync();
         await Clients.Caller.SendAsync("GetGames", games);
     }
 }

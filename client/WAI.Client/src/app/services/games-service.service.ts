@@ -12,10 +12,7 @@ export class GamesServices {
 
   private hubConnection: HubConnection | undefined;
   private gamesSubject: Subject<GameInfo[]> = new Subject<GameInfo[]>();
-
-  get games$(): Observable<GameInfo[]> {
-    return this.gamesSubject.asObservable();
-  }
+  public games$: Observable<GameInfo[]> = this.gamesSubject.asObservable();
 
   constructor(private http: HttpClient) {
   }
