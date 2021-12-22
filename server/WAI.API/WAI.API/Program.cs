@@ -1,6 +1,11 @@
+using System.Text;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using WAI.API.DataAccess;
 using WAI.API.DataAccess.Entities;
 using WAI.API.Hubs;
@@ -14,11 +19,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy",
-        b => b.WithOrigins("http://localhost:4200")
+        b => b.WithOrigins("https://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
+
+var services = builder.Services;
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -29,11 +36,27 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("WAI.Db")));
-builder.Services.AddIdentity<User, IdentityRole<long>>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
 
-builder.Services.AddDataProtection();
+var idbuilder = services.AddIdentityCore<User>();
+var identityBuilder = new IdentityBuilder(idbuilder.UserType, services);
+identityBuilder.AddEntityFrameworkStores<DataContext>();
+identityBuilder.AddSignInManager<SignInManager<User>>();
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(
+        opt =>
+        {
+            opt.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = key,
+                ValidateAudience = false,
+                ValidateIssuer = false,
+            };
+        });
+
+
 builder.Services.AddHttpClient();
 builder.Services.AddHttpContextAccessor();
 
@@ -56,6 +79,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

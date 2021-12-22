@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-login-page',
@@ -8,16 +8,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LoginPageComponent {
 
-  constructor(private http: HttpClient) {
+  public vkUrlRedirectLink: string;
+
+  constructor(private auth: AuthService) {
+    this.vkUrlRedirectLink = auth.vkUrlRedirectLink;
   }
 
-  vkUrlRedirectLink = 'https://oauth.vk.com/authorize?' +
-    'client_id=8028309&' +
-    'display=popup&' +
-    'redirect_uri=http://localhost:4200/callback&' +
-    'scope=friends,offline,email,photos&' +
-    'response_type=code&' +
-    'v=5.131';
-
-
+  public redirectToVkLoginPage(): void{
+    this.auth.redirectToVkLogin();
+  }
 }

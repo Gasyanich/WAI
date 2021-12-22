@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WAI.API.Features.Games;
 
 namespace WAI.API.Controllers;
 
@@ -13,6 +15,13 @@ public class GamesController : Controller
     {
         _mediator = mediator;
     }
-    
-    
+
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> CreateGame([FromBody] CreateGameRequest request)
+    {
+        await _mediator.Send(request);
+
+        return Ok();
+    }
 }

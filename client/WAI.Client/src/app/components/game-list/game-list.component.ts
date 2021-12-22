@@ -20,6 +20,7 @@ export class GameListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.gameService.createGame('testgamename');
   }
 
   ngOnDestroy(): void {

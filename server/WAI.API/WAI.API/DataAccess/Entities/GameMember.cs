@@ -11,7 +11,7 @@ public class GameMember
     public Game Game { get; set; }
 
     [MaxLength(256)]
-    public string Word { get; set; }
+    public string? Word { get; set; }
 
     [Required]
     public GameMemberRole Role { get; set; }

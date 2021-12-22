@@ -3,6 +3,7 @@ import {HubConnection, HubConnectionBuilder} from "@aspnet/signalr";
 import {environment} from "../../environments/environment";
 import {Observable, Subject} from "rxjs";
 import {GameInfo} from "../game-info";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class GamesServices {
     return this.gamesSubject.asObservable();
   }
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   public initConnection(): void {
@@ -30,7 +31,7 @@ export class GamesServices {
   }
 
   public createGame(gameName: string): void {
-    this.hubConnection?.invoke('CreateGame', gameName);
+    this.http.post('games', {gameName}).subscribe();
   }
 
   public addGetGamesListener(): void {

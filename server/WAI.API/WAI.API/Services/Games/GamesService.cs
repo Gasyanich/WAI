@@ -53,6 +53,8 @@ public class GamesService : IGamesService
 
         creatorGameMember.Role = GameMemberRole.Creator;
 
+        await _dataContext.SaveChangesAsync();
+        
         return new GameInfo
         {
             Id = game.Id,
