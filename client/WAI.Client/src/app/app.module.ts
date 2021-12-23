@@ -15,13 +15,18 @@ import {VkCallbackComponent} from './components/vk-callback/vk-callback.componen
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatListModule} from "@angular/material/list";
 import {ApiInterceptor} from "./interceptors/api.interceptor";
+import { CreateGameDialogComponent } from './components/create-game-dialog/create-game-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     GameListComponent,
     LoginPageComponent,
-    VkCallbackComponent
+    VkCallbackComponent,
+    CreateGameDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,10 @@ import {ApiInterceptor} from "./interceptors/api.interceptor";
     MatToolbarModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [
     {

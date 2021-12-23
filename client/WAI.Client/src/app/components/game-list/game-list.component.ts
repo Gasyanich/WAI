@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GamesServices} from "../../services/games-service.service";
 import {Observable} from "rxjs";
 import {GameInfo} from "../../game-info";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateGameDialogComponent} from "../create-game-dialog/create-game-dialog.component";
 
 
 @Component({
@@ -13,7 +15,7 @@ export class GameListComponent implements OnInit, OnDestroy {
 
   games$: Observable<GameInfo[]>;
 
-  constructor(private gameService: GamesServices) {
+  constructor(private gameService: GamesServices, private matDialog: MatDialog) {
     this.gameService.initConnection();
     this.gameService.addGetGamesListener();
     this.games$ = this.gameService.games$;
@@ -25,8 +27,17 @@ export class GameListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  public createGame():void{
-    this.gameService.createGame('test game name');
+  public openCreateGameDialog(): void {
+    const dialogRef = this.matDialog.open(CreateGameDialogComponent, {
+      width: '100%',
+      maxWidth: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe((gameName: string) => {
+      console.log(gameName);
+      if (gameName && gameName.length > 0)
+        this.gameService.createGame(gameName).subscribe();
+    });
   }
 
 

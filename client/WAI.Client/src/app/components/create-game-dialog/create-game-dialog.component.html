@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Создание новой игры</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Название игры</mat-label>
+    <input matInput placeholder="Введите название игры..." [(ngModel)]="gameName" required>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close="">Отмена</button>
+  <button mat-raised-button [mat-dialog-close]="gameName" color="primary">Ок</button>
+</div>

@@ -27,8 +27,8 @@ export class GamesServices {
       .catch(err => console.log('Error'));
   }
 
-  public createGame(gameName: string): void {
-    this.http.post('games', {gameName}).subscribe();
+  public createGame(gameName: string): Observable<any> {
+    return this.http.post('games', {gameName});
   }
 
   public addGetGamesListener(): void {
