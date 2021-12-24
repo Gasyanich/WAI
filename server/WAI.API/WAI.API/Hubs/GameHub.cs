@@ -4,15 +4,22 @@ namespace WAI.API.Hubs;
 
 public class GameHub : Hub
 {
-    private readonly ILogger<GameHub> _logger;
+    // private readonly GameService _gameService;
+    //
+    // public GameHub(GameService gameService)
+    // {
+    //     _gameService = gameService;
+    // }
 
-    public GameHub(ILogger<GameHub> logger)
-    {
-        _logger = logger;
-    }
-
-    public async Task CreateGame(string gameName)
-    {
-        await Groups.AddToGroupAsync(Context.ConnectionId, gameName);
-    }
+    // [Authorize]
+    // public async Task ConnectToGame(long gameId)
+    // {
+    // var userIdStr = Context.User!.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+    // var userId = long.Parse(userIdStr);
+    //
+    // await Groups.AddToGroupAsync(Context.ConnectionId, gameId.ToString());
+    //
+    // var gameDto = await _gameService.ConnectToGameAsync(gameId, userId);
+    //
+    // Clients.Group(gameId.ToString()).SendAsync("")
 }

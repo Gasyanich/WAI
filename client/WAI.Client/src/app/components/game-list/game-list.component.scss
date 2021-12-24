@@ -3,3 +3,10 @@
   bottom: 25px;
   right: 25px;
 }
+
+.game-list-header{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+}

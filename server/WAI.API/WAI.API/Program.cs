@@ -1,16 +1,13 @@
 using System.Text;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using WAI.API.DataAccess;
 using WAI.API.DataAccess.Entities;
 using WAI.API.Hubs;
 using WAI.API.Services;
-using WAI.API.Services.Games;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy",
-        b => b.WithOrigins("https://localhost:4200")
+        b => b.WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -52,7 +49,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = key,
                 ValidateAudience = false,
-                ValidateIssuer = false,
+                ValidateIssuer = false
             };
         });
 
@@ -63,7 +60,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddMediatR(typeof(Program));
 
 builder.Services.AddSingleton<IVkClientFactory, VkClientFactory>();
-builder.Services.AddScoped<IGamesService, GamesService>();
 
 
 var app = builder.Build();
@@ -85,6 +81,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<GameHub>("/game");
-app.MapHub<GamesHub>("/games");
 
 app.Run();

@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WAI.API.Features.Games;
+using WAI.API.Features.Games.CreateGame;
+using WAI.API.Features.Games.GetGames;
 
 namespace WAI.API.Controllers;
 
@@ -16,12 +17,21 @@ public class GamesController : Controller
         _mediator = mediator;
     }
 
-    [HttpPost]
     [Authorize]
+    [HttpPost]
     public async Task<IActionResult> CreateGame([FromBody] CreateGameRequest request)
     {
         await _mediator.Send(request);
 
         return Ok();
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetGames()
+    {
+        var response = await _mediator.Send(new GetGamesRequest());
+
+        return Ok(response);
     }
 }

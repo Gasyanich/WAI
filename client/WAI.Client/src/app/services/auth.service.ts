@@ -10,7 +10,7 @@ export class AuthService {
   public vkUrlRedirectLink = 'https://oauth.vk.com/authorize?' +
     'client_id=8028309&' +
     'display=popup&' +
-    'redirect_uri=https://localhost:4200/vkcallback&' +
+    'redirect_uri=http://localhost:4200/vkcallback&' +
     'scope=friends,offline,email,photos&' +
     'response_type=code&' +
     'v=5.131';

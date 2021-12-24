@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GamesServices} from "../../services/games-service.service";
 import {Observable} from "rxjs";
 import {GameInfo} from "../../game-info";
@@ -11,33 +11,31 @@ import {CreateGameDialogComponent} from "../create-game-dialog/create-game-dialo
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit, OnDestroy {
+export class GameListComponent implements OnInit {
 
-  games$: Observable<GameInfo[]>;
+  games$: Observable<GameInfo[]> | undefined;
 
   constructor(private gameService: GamesServices, private matDialog: MatDialog) {
-    this.gameService.initConnection();
-    this.gameService.addGetGamesListener();
-    this.games$ = this.gameService.games$;
   }
 
   ngOnInit(): void {
+    this.loadGameList();
   }
 
-  ngOnDestroy(): void {
-  }
-
-  public openCreateGameDialog(): void {
+  openCreateGameDialog(): void {
     const dialogRef = this.matDialog.open(CreateGameDialogComponent, {
       width: '100%',
       maxWidth: '600px'
     });
 
     dialogRef.afterClosed().subscribe((gameName: string) => {
-      console.log(gameName);
       if (gameName && gameName.length > 0)
-        this.gameService.createGame(gameName).subscribe();
+        this.gameService.createGame$(gameName).subscribe();
     });
+  }
+
+  loadGameList(): void {
+    this.games$ = this.gameService.getGames$();
   }
 
 

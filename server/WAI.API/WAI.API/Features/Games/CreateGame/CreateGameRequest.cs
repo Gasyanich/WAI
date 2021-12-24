@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MediatR;
 
-namespace WAI.API.Features.Games;
+namespace WAI.API.Features.Games.CreateGame;
 
 public class CreateGameRequest : IRequest
 {
