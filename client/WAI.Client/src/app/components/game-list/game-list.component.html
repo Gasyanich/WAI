@@ -8,6 +8,7 @@
   <mat-divider></mat-divider>
   <mat-list-item *ngFor="let game of games$ | async">
     <div mat-line>{{game.name}}</div>
+    <button [routerLink]="[game.id]" mat-button>Присоединиться</button>
   </mat-list-item>
 </mat-list>
 

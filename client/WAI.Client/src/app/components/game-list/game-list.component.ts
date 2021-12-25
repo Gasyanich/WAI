@@ -15,7 +15,7 @@ export class GameListComponent implements OnInit {
 
   games$: Observable<GameInfo[]> | undefined;
 
-  constructor(private gameService: GamesServices, private matDialog: MatDialog) {
+  constructor(private gamesService: GamesServices, private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -30,13 +30,11 @@ export class GameListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((gameName: string) => {
       if (gameName && gameName.length > 0)
-        this.gameService.createGame$(gameName).subscribe();
+        this.gamesService.createGame$(gameName).subscribe();
     });
   }
 
   loadGameList(): void {
-    this.games$ = this.gameService.getGames$();
+    this.games$ = this.gamesService.getGames$();
   }
-
-
 }

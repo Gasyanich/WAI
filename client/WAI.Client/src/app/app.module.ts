@@ -19,6 +19,7 @@ import { CreateGameDialogComponent } from './components/create-game-dialog/creat
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import { GamePageComponent } from './components/game-page/game-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {FormsModule} from "@angular/forms";
     GameListComponent,
     LoginPageComponent,
     VkCallbackComponent,
-    CreateGameDialogComponent
+    CreateGameDialogComponent,
+    GamePageComponent
   ],
   imports: [
     BrowserModule,

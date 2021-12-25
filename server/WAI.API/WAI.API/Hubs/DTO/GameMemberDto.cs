@@ -1,4 +1,4 @@
-﻿namespace WAI.API.Features.Games.ConnectToGame;
+﻿namespace WAI.API.Hubs.DTO;
 
 public class GameMemberDto
 {
@@ -11,6 +11,4 @@ public class GameMemberDto
     public string LastName { get; set; }
 
     public string AvatarUrl { get; set; }
-    
-    
 }
