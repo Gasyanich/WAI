@@ -44,7 +44,11 @@ public class VkLoginHandler : IRequestHandler<VkLoginRequest, VkLoginResponse>
         if (user != null)
         {
             token = GenerateJwtToken(user);
-            return new VkLoginResponse {Token = token};
+            return new VkLoginResponse
+            {
+                Token = token,
+                UserId = user.Id
+            };
         }
 
         var vkApiClient = _vkClientFactory.GetVkClient(vkAccessToken.AccessToken);
@@ -68,7 +72,12 @@ public class VkLoginHandler : IRequestHandler<VkLoginRequest, VkLoginResponse>
         await _userManager.CreateAsync(user);
 
         token = GenerateJwtToken(user);
-        return new VkLoginResponse {Token = token};
+
+        return new VkLoginResponse
+        {
+            Token = token,
+            UserId = user.Id
+        };
     }
 
     private async Task<VkAccessTokenResponse> GetVkAccessTokenResponseAsync(string code)

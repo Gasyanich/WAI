@@ -23,6 +23,7 @@ export class AuthService {
       .subscribe((response: TokenResponse) => {
         localStorage.setItem('isAuth', 'true');
         localStorage.setItem('jwt', response.token);
+        localStorage.setItem('userId', response.userId.toString());
         this.router.navigateByUrl('/games');
       });
   }
@@ -38,4 +39,5 @@ export class AuthService {
 
 export interface TokenResponse {
   token: string;
+  userId: number;
 }

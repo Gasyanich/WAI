@@ -1,1 +1,23 @@
-<p>game-page works! woooooooooow</p>
+<div *ngIf="gameData">
+  <h1 class="mat-headline game-header">{{gameData.name}}</h1>
+
+  <div mat-subheader>Босс качалки</div>
+  <mat-list>
+    <mat-list-item>
+      <img matListAvatar [src]="gameData.creator.avatarUrl">
+      <h3 matLine>{{gameData.creator.firstName + " " + gameData.creator.lastName}}</h3>
+    </mat-list-item>
+  </mat-list>
+
+  <mat-list>
+    <div mat-subheader>Участники</div>
+    <mat-list-item *ngFor="let gameMember of gameData.gameMembers">
+      <img matListAvatar [src]="gameMember.avatarUrl">
+      <h3 matLine>{{gameMember.firstName + " " + gameMember.lastName}}</h3>
+    </mat-list-item>
+  </mat-list>
+
+  <button mat-fab color="primary" class="start-game-button" *ngIf="isCreator()">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+</div>

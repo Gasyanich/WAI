@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {GamesServices} from "../../services/games-service.service";
 import {Observable} from "rxjs";
-import {GameInfo} from "../../game-info";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateGameDialogComponent} from "../create-game-dialog/create-game-dialog.component";
+import {GameInfo} from "../../models/game-info";
+import {GamesService} from "../../services/games.service";
 
 
 @Component({
@@ -15,7 +15,7 @@ export class GameListComponent implements OnInit {
 
   games$: Observable<GameInfo[]> | undefined;
 
-  constructor(private gamesService: GamesServices, private matDialog: MatDialog) {
+  constructor(private gamesService: GamesService, private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
